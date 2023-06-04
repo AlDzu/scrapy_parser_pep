@@ -1,4 +1,4 @@
-# scrapy crawl pep -O pep.csv
+# scrapy crawl pep
 import scrapy
 
 from pep_parse.items import PepParseItem
@@ -17,9 +17,10 @@ class PepSpider(scrapy.Spider):
 
     def parse_pep(self, response):
         head = response.css("h1.page-title::text").get().strip().split(" – ")
+        # обратно не понял. в константы можно вынести разве что номер
+        # с прицелом ссылки из него собирать? их получаем немного выше.
+        # ['PEP 1', 'PEP Purpose and Guidelines']
         number = (head[0])
-        if number is None:
-            number = ' '
         name = (head[-1])
         if name is None:
             name = ' '

@@ -32,10 +32,9 @@ class PepParsePipeline:
             dialect.escapechar = ' '
             dialect.quoting = csv.QUOTE_NONE
             dialect.lineterminator = '\n'
-            result = []
-            result.append(STATUS_TABLE_HEADER)
+            result = ((STATUS_TABLE_HEADER), )
             for key in self.status_dict:
-                result.append((key, ) + (self.status_dict[key], ))
-            result.append(('Total', ) + (sum(self.status_dict.values()), ))
+                result += ((key, ) + (self.status_dict[key], ), )
+            result += (('Total', ) + (sum(self.status_dict.values()), ), )
             writer = csv.writer(f, dialect=dialect)
             writer.writerows(result)
